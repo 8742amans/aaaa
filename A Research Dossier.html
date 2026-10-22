@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Umar Khalid — A Research Dossier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F2EFE7;
+    --paper-raised:#FBF9F4;
+    --ink:#1D1B17;
+    --ink-soft:#55504A;
+    --ink-faint:#8C8678;
+    --line:#DDD6C6;
+    --accent:#7A2A22;
+    --accent-ink:#7A2A22;
+    --accent-soft:#F3E3DE;
+    --navy:#223247;
+    --navy-soft:#E3E8EC;
+    --shadow: rgba(29,27,23,0.08);
+    color-scheme: light;
+    box-sizing:border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  *,*::before,*::after{box-sizing:inherit;}
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      color-scheme: dark;
+      --paper:#17150F;
+      --paper-raised:#211E17;
+      --ink:#EDE8DC;
+      --ink-soft:#BEB6A4;
+      --ink-faint:#8A8372;
+      --line:#3A362C;
+      --accent:#E2998A;
+      --accent-ink:#E2998A;
+      --accent-soft:#332220;
+      --navy:#93B4D6;
+      --navy-soft:#1D2733;
+      --shadow: rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --paper:#17150F;
+    --paper-raised:#211E17;
+    --ink:#EDE8DC;
+    --ink-soft:#BEB6A4;
+    --ink-faint:#8A8372;
+    --line:#3A362C;
+    --accent:#E2998A;
+    --accent-ink:#E2998A;
+    --accent-soft:#332220;
+    --navy:#93B4D6;
+    --navy-soft:#1D2733;
+    --shadow: rgba(0,0,0,0.35);
+  }
+  html{scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 16px); scroll-behavior:smooth;}
+  html,body{height:auto; min-height:100%;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Source Serif 4", Georgia, "Times New Roman", serif;
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sans{font-family:"IBM Plex Sans", -apple-system, Segoe UI, Roboto, sans-serif;}
+  a{color:var(--accent-ink); text-decoration-thickness:1px; text-underline-offset:2px;}
+  a:hover{text-decoration-thickness:2px;}
+
+  /* ---------- Layout shell ---------- */
+  .shell{
+    max-width:1180px;
+    margin:0 auto;
+    padding: 28px 20px 80px;
+    display:grid;
+    grid-template-columns: 250px minmax(0,720px);
+    gap:56px;
+    justify-content:center;
+    align-items:start;
+  }
+  @media (max-width: 920px){
+    .shell{grid-template-columns: minmax(0,1fr); gap:0; padding:0 0 60px;}
+  }
+
+  /* ---------- Masthead ---------- */
+  .masthead{
+    grid-column: 1 / -1;
+    max-width:760px;
+    margin: 10px auto 18px;
+    padding: 0 20px;
+    text-align:left;
+  }
+  .masthead .kicker{
+    font-family:"IBM Plex Sans", sans-serif;
+    font-size:13px;
+    letter-spacing:0.02em;
+    color:var(--ink-faint);
+    margin:0 0 10px;
+  }
+  .masthead h1{
+    font-size:clamp(2.6rem, 6vw, 4.2rem);
+    line-height:0.98;
+    margin:0 0 14px;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  .masthead .dek{
+    font-size:1.2rem;
+    color:var(--ink-soft);
+    max-width:56ch;
+    margin:0 0 26px;
+    line-height:1.5;
+  }
+  .stat-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:0;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    margin-bottom:22px;
+  }
+  .stat{
+    padding:18px 26px 18px 0;
+    margin-right:26px;
+    flex:0 0 auto;
+  }
+  .stat:not(:last-child){border-right:1px solid var(--line);}
+  .stat .num{
+    font-size:2.3rem;
+    font-weight:700;
+    color:var(--accent-ink);
+    line-height:1;
+    display:block;
+  }
+  .stat .lbl{
+    font-family:"IBM Plex Sans", sans-serif;
+    font-size:0.82rem;
+    color:var(--ink-soft);
+    max-width:20ch;
+    display:block;
+    margin-top:6px;
+    line-height:1.3;
+  }
+  .status-line{
+    font-family:"IBM Plex Sans", sans-serif;
+    font-size:0.92rem;
+    color:var(--ink-soft);
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-radius:3px;
+    padding:12px 16px;
+    margin-bottom:6px;
+  }
+  .status-line b{color:var(--ink);}
+
+  /* ---------- TOC ---------- */
+  nav.toc{
+    position:sticky;
+    top:28px;
+    align-self:start;
+    font-family:"IBM Plex Sans", sans-serif;
+    font-size:0.85rem;
+  }
+  nav.toc .toc-title{
+    text-transform:none;
+    color:var(--ink-faint);
+    font-size:0.78rem;
+    margin-bottom:10px;
+    letter-spacing:0.02em;
+  }
+  nav.toc ol{list-style:none; margin:0; padding:0; counter-reset:toc;}
+  nav.toc li{counter-increment:toc; margin-bottom:3px;}
+  nav.toc a{
+    display:block;
+    color:var(--ink-soft);
+    text-decoration:none;
+    padding:6px 0 6px 22px;
+    position:relative;
+    border-left:2px solid transparent;
+    line-height:1.3;
+  }
+  nav.toc a:hover{color:var(--ink); border-left-color:var(--line);}
+  nav.toc a::before{
+    content: counter(toc);
+    position:absolute;
+    left:0;
+    top:6px;
+    color:var(--ink-faint);
+    font-variant-numeric:tabular-nums;
+    font-size:0.78rem;
+  }
+  @media (max-width:920px){
+    nav.toc{
+      position:static;
+      margin: 18px 20px 34px;
+      border:1px solid var(--line);
+      border-radius:4px;
+      background:var(--paper-raised);
+      padding:6px 16px;
+    }
+    nav.toc[open]{padding-bottom:12px;}
+    nav.toc summary{
+      cursor:pointer;
+      padding:12px 0;
+      font-weight:600;
+      color:var(--ink);
+      list-style:none;
+    }
+    nav.toc summary::-webkit-details-marker{display:none;}
+    nav.toc summary::after{content:"▾"; float:right; color:var(--ink-faint);}
+  }
+
+  /* ---------- Main content ---------- */
+  main{min-width:0;}
+  section{
+    padding: 0 20px;
+    margin-bottom:54px;
+    scroll-margin-top: calc(env(safe-area-inset-top,0px) + 18px);
+  }
+  section h2{
+    font-size:1.65rem;
+    font-weight:600;
+    margin:0 0 6px;
+    letter-spacing:-0.005em;
+  }
+  section .section-note{
+    font-family:"IBM Plex Sans", sans-serif;
+    font-size:0.86rem;
+    color:var(--ink-faint);
+    margin:0 0 20px;
+  }
+  h3{font-size:1.15rem; font-weight:600; margin:28px 0 10px;}
+  p{margin:0 0 16px; max-width:68ch;}
+  ul,ol{margin:0 0 16px; padding-left:1.3em; max-width:66ch;}
+  li{margin-bottom:6px;}
+  strong{font-weight:600;}
+
+  blockquote.pull{
+    margin: 22px 0;
+    padding: 4px 0 4px 20px;
+    border-left: 3px solid var(--accent);
+    max-width:60ch;
+  }
+  blockquote.pull p{
+    font-size:1.12rem;
+    font-style:italic;
+    color:var(--ink);
+    margin-bottom:8px;
+  }
+  blockquote.pull cite{
+    font-family:"IBM Plex Sans", sans-serif;
+    font-style:normal;
+    font-size:0.8rem;
+    color:var(--ink-faint);
+  }
+
+  .callout{
+    border:1px solid var(--line);
+    border-left:4px solid var(--ink-faint);
+    background:var(--paper-raised);
+    border-radius:2px;
+    padding:14px 18px;
+    margin:18px 0;
+    max-width:66ch;
+  }
+  .callout .tag{
+    font-family:"IBM Plex Sans", sans-serif;
+    font-weight:600;
+    font-size:0.76rem;
+    display:block;
+    margin-bottom:6px;
+  }
+  .callout p:last-child{margin-bottom:0;}
+  .callout.allege{border-left-color:var(--accent);}
+  .callout.allege .tag{color:var(--accent-ink);}
+  .callout.court{border-left-color:var(--navy);}
+  .callout.court .tag{color:var(--navy);}
+  .callout.defense{border-left-color:var(--ink-soft);}
+  .callout.defense .tag{color:var(--ink-soft);}
+
+  .figure-note{
+    font-family:"IBM Plex Sans", sans-serif;
+    font-size:0.82rem;
+    color:var(--ink-faint);
+    border-top:1px solid var(--line);
+    padding-top:10px;
+    margin-top:28px;
+  }
+
+  /* ---------- Timeline ---------- */
+  .timeline{
+    position:relative;
+    margin: 20px 0 10px;
+    padding-left:26px;
+    border-left:2px solid var(--line);
+    max-width:66ch;
+  }
+  .t-entry{position:relative; padding-bottom:22px;}
+  .t-entry:last-child{padding-bottom:0;}
+  .t-entry::before{
+    content:"";
+    position:absolute;
+    left:-31px;
+    top:5px;
+    width:10px;height:10px;
+    border-radius:50%;
+    background:var(--paper);
+    border:2px solid var(--accent);
+  }
+  .t-entry .t-date{
+    font-family:"IBM Plex Sans", sans-serif;
+    font-weight:600;
+    font-size:0.82rem;
+    color:var(--accent-ink);
+    display:block;
+    margin-bottom:3px;
+  }
+  .t-entry p{margin-bottom:4px; font-size:0.98rem;}
+
+  /* ---------- Table ---------- */
+  .tbl-wrap{overflow-x:auto; margin:18px 0;}
+  table{border-collapse:collapse; width:100%; font-size:0.92rem; min-width:560px;}
+  th,td{text-align:left; padding:9px 12px; border-bottom:1px solid var(--line); vertical-align:top;}
+  th{font-family:"IBM Plex Sans", sans-serif; font-weight:600; font-size:0.78rem; color:var(--ink-soft);}
+
+  hr.div{border:none; border-top:1px solid var(--line); margin:40px 0;}
+
+  footer{
+    padding: 30px 20px 10px;
+    font-family:"IBM Plex Sans", sans-serif;
+    font-size:0.82rem;
+    color:var(--ink-faint);
+    max-width:66ch;
+    margin: 0 20px;
+  }
+  footer h2{font-family:"Source Serif 4", serif; font-size:1.2rem; color:var(--ink); margin-bottom:10px;}
+  footer ol{columns:1; padding-left:1.1em;}
+  footer li{margin-bottom:5px; word-break:break-word;}
+  footer a{color:var(--ink-soft);}
+
+  .theme-toggle{
+    position:fixed;
+    right:16px;
+    bottom:16px;
+    z-index:20;
+    font-family:"IBM Plex Sans", sans-serif;
+    font-size:0.78rem;
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    color:var(--ink-soft);
+    border-radius:20px;
+    padding:8px 14px;
+    cursor:pointer;
+    box-shadow:0 2px 10px var(--shadow);
+  }
+</style>
+</head>
+<body>
+
+<button class="theme-toggle sans" id="themeToggle" aria-label="Toggle light or dark reading mode">Toggle theme</button>
+
+<div class="masthead">
+  <p class="kicker sans">RESEARCH DOSSIER · COMPILED 15 OCTOBER 2026</p>
+  <h1>Umar Khalid</h1>
+  <p class="dek">A former JNU history scholar turned student leader turned national flashpoint — the record of the two legal cases that have followed him since 2016, the chronology of a bail fight now in its seventh year, and the sharply divided ways his government, his opposition, the courts, and the wider world have come to see him.</p>
+
+  <div class="stat-row">
+    <div class="stat"><span class="num">6+</span><span class="lbl sans">years in pretrial custody, no conviction</span></div>
+    <div class="stat"><span class="num">3</span><span class="lbl sans">regular bail bids rejected by the Delhi High Court</span></div>
+    <div class="stat"><span class="num">0</span><span class="lbl sans">charges formally framed in the main case, as of writing</span></div>
+  </div>
+
+  <p class="status-line">Status as of <b>15 October 2026</b>: Umar Khalid remains in Tihar Jail. His third regular bail appeal was dismissed by the Delhi High Court on 30 September 2026. A Supreme Court reference asking a larger bench to settle conflicting bail principles under India's anti-terror law remains pending. Everything below involving the 2020 case concerns an undertrial — allegations a court has not yet adjudicated on the merits.</p>
+</div>
+
+<div class="shell">
+  <nav class="toc" id="tocNav">
+    <details id="tocDetails">
+      <summary class="sans">Contents</summary>
+      <p class="toc-title sans">On this page</p>
+      <ol>
+        <li><a href="#snapshot">Who he is, in brief</a></li>
+        <li><a href="#early-life">Early life and the road into activism</a></li>
+        <li><a href="#2016">2016: the JNU event and the sedition case</a></li>
+        <li><a href="#between">2016–2020: a national activist, and a shooting</a></li>
+        <li><a href="#riots-case">The 2020 Delhi riots and the "larger conspiracy"</a></li>
+        <li><a href="#timeline">Seven years of bail hearings: a timeline</a></li>
+        <li><a href="#today">Where things stand today</a></li>
+        <li><a href="#record">What's proven, alleged, and argued</a></li>
+        <li><a href="#government">How the government and BJP see him</a></li>
+        <li><a href="#opposition">How the opposition sees him</a></li>
+        <li><a href="#courts">How the courts have seen him</a></li>
+        <li><a href="#civil-society">Civil society, lawyers, and rights groups</a></li>
+        <li><a href="#international">The view from outside India</a></li>
+        <li><a href="#documentary">Flashpoint: the campus documentary row</a></li>
+        <li><a href="#media">Media and public perception</a></li>
+        <li><a href="#personal">The person: family, beliefs, writing</a></li>
+        <li><a href="#others">Where his co-accused and peers stand now</a></li>
+        <li><a href="#reading">A balanced closing note</a></li>
+        <li><a href="#sources">Sources</a></li>
+      </ol>
+    </details>
+  </nav>
+
+  <main>
+
+    <section id="snapshot">
+      <h2>Who he is, in brief</h2>
+      <p>Syed Umar Khalid, born 11 August 1987 in Delhi, is a historian by training and a student-movement leader by reputation — someone who, depending entirely on who you ask, is either a dangerous inciter of communal riots or a wrongly jailed defender of free speech. There isn't really a neutral, widely agreed-upon one-line description of him left in Indian public life; the disagreement over how to describe him is itself the story.</p>
+      <p>What isn't in dispute: he did a BA in history at Delhi University, then an MA, MPhil and PhD in history at Jawaharlal Nehru University (JNU). He became nationally known in February 2016 when he and others were charged with sedition over a campus event. He spent the following years as a prominent anti-Citizenship Amendment Act (CAA) campaigner and co-founded a civil-society group against hate crimes. In September 2020 he was arrested under India's main anti-terrorism statute, the Unlawful Activities (Prevention) Act (UAPA), accused of helping orchestrate the communal riots that killed 53 people in northeast Delhi that February. He has been in Tihar Jail ever since, now more than six years, without being convicted of anything — and, as of this writing, without the trial court having even finished framing formal charges against him in that case.</p>
+      <div class="callout">
+        <span class="tag sans">A note on method</span>
+        <p>This dossier draws on Indian and international news reporting, court-reporting outlets (Live Law, Bar &amp; Bench, SCC Online, the Supreme Court Observer), human-rights organisations' statements, and party statements, current as of 15 October 2026. The 2020 case is still before the courts; nothing here should be read as a finding of guilt or innocence. Where sources disagree — which is often — this dossier tries to say so and name who is saying what, rather than pick a side.</p>
+      </div>
+    </section>
+
+    <section id="early-life">
+      <h2>Early life and the road into activism</h2>
+      <p>Khalid grew up in a middle-class Muslim family with roots on both sides of his family in smaller-town India — his father, Syed Qasim Rasool Ilyas, traces his family to Amravati in Maharashtra, and his mother, Sabiha Khanum, is from western Uttar Pradesh. He did his early schooling in Delhi. His father has spent decades in Muslim community and political organising; by the family's own account, S.Q.R. Ilyas was briefly associated with the Students Islamic Movement of India (SIMI) in the 1980s, years before SIMI was banned in 2001 and well before Umar was born — a historical footnote that critics have nonetheless tried to use against the son.</p>
+      <p>Khalid has long described his own relationship to religion very differently from how his opponents characterise it: friends recall him telling a student documentary crew as early as 2009 that he was "hardly a Muslim," and he has since described himself publicly as agnostic, a non-practising "radical democrat" rather than a religious figure. At JNU, where he pursued his postgraduate and doctoral work, he moved into Left student politics and became a leader of the Democratic Students' Union (DSU), a smaller, further-left campus formation distinct from the bigger Left blocs (AISA, SFI, AISF) better known in Indian student politics.</p>
+      <p>His doctoral research — on the Adivasi (tribal) communities of the Singhbhum region of present-day Jharkhand, and on colonial and postcolonial forest and land policy — was, by his examiners' account, well-regarded scholarship. It would later form the basis of a book, published decades after he began the research, while he was still in prison (more on that below). JNU's administration blocked his thesis submission in July 2018 amid the broader political storm around him, before relenting under legal and public pressure that August; he ultimately completed his PhD.</p>
+    </section>
+
+    <section id="2016">
+      <h2>2016: the JNU event and the sedition case</h2>
+      <p>On 9 February 2016, a group of JNU students held a campus event marking the anniversary of the hanging of Afzal Guru, convicted for his role in the 2001 attack on India's Parliament, and of Kashmiri separatist Maqbool Bhat. The university's administration had withdrawn permission for the event after a complaint from the Akhil Bharatiya Vidyarthi Parishad (ABVP), the BJP-affiliated student organisation — but it went ahead regardless, and "anti-national" slogans were reportedly raised. An FIR was registered two days later at Vasant Kunj (North) police station under the sedition law (Section 124A of the Indian Penal Code) and criminal conspiracy, following complaints from BJP MP Maheish Girri and the ABVP.</p>
+      <p>What followed was a national media storm. Kanhaiya Kumar, then JNU Students' Union president (and a leader of the CPI-aligned All India Students Federation, not Khalid's own DSU), was arrested first, on 12 February. Khalid and fellow organiser Anirban Bhattacharya went into hiding for about ten days before surrendering to police on 23–24 February. Some television channels aired footage, later disputed as selectively edited or doctored, purporting to show the students raising explicitly anti-India slogans; Khalid has said reports at the time — including an intelligence inflow later denied by the Intelligence Bureau itself, linking him to the banned group Jaish-e-Mohammed, and a widely repeated claim that he made hundreds of calls to "the Gulf or Kashmir" — were simply false. Posters calling for his death reportedly appeared in JNU's neighbouring Munirka market; his sisters have said they received threats for defending him online.</p>
+      <p>JNU's own disciplinary inquiry (its High-Level Enquiry Committee) recommended rusticating Khalid for a semester and fining Kanhaiya Kumar ₹10,000; the Delhi High Court later stayed that disciplinary action and sent it back for a fresh hearing with due process. On the criminal side, prosecution dragged for years: Delhi's then-AAP government did not grant the sanction needed to prosecute for sedition until February 2020, four years after the event. Delhi Police's Crime Branch filed a 1,200-page chargesheet in January 2019 naming ten accused — Kanhaiya Kumar, Khalid, Bhattacharya, and seven Kashmiri students — and a court took cognisance and summoned them to face trial in February 2021.</p>
+      <div class="callout defense">
+        <span class="tag sans">Where this case stands</span>
+        <p>The sedition case has moved far more slowly than the 2020 Delhi riots case and has produced no conviction, acquittal, or discharge for Khalid to date. It also now sits in a cloud of broader legal uncertainty: in 2022 the Supreme Court, hearing a constitutional challenge to Section 124A, asked the central and state governments to hold all sedition prosecutions in abeyance while the law was reconsidered. India's new criminal code, in force since mid-2024, replaced the colonial-era sedition section with a differently worded provision, though that does not retroactively erase charges filed under the old law. In short: formally alive, but effectively dormant relative to the case that has actually kept Khalid behind bars.</p>
+      </div>
+    </section>
+
+    <section id="between">
+      <h2>2016–2020: a national activist, and a shooting</h2>
+      <p>Out on bail in the sedition case, Khalid spent the next several years as one of the most recognisable young faces of India's protest Left — speaking at campuses and public rallies, writing, and co-founding United Against Hate with fellow activist Khalid Saifi, a civil-society initiative formed in response to a wave of mob lynchings, many targeting Muslims and Dalits, in the mid-2010s.</p>
+      <p>On 13 August 2018, while arriving at a United Against Hate event at Delhi's Constitution Club — a discussion on lynching and minority safety titled "Freedom from Fear" — Khalid was attacked by a man who pressed a pistol against him before the gun reportedly jammed or discharged into the air; Khalid was uninjured, friends overpowered the attacker, who fled, and police recovered the weapon and opened an attempted-murder case. Khalid told reporters afterward that his first thought was of Gauri Lankesh, the journalist and government critic shot dead the previous year — a comparison several commentators and fellow activists echoed at the time as evidence that a climate of real physical danger, not just online abuse, had built up around prominent government critics.</p>
+      <p>By late 2019, Khalid was a prominent voice in the nationwide protests against the Citizenship (Amendment) Act (CAA) and the proposed National Register of Citizens (NRC), which critics said would disadvantage Muslims specifically. It was a speech during this period — delivered in Amravati, Maharashtra on 17 February 2020 — that would become the central piece of evidence against him days later.</p>
+    </section>
+
+    <section id="riots-case">
+      <h2>The 2020 Delhi riots and the "larger conspiracy" case</h2>
+      <p>Between 23 and 26 February 2020, communal violence tore through several neighbourhoods of northeast Delhi, triggered amid clashes between crowds supporting and opposing the CAA. Fifty-three people were killed, most of them Muslim, and more than 700 were injured, in rioting that is widely described in retrospective reporting as among the worst communal violence Delhi had seen in decades. The violence began days after BJP leader Kapil Mishra gave police a public ultimatum to clear anti-CAA protesters blocking a road near Jafrabad, and unfolded while then-US President Donald Trump was on a state visit to India.</p>
+      <p>Delhi Police's Special Cell opened an investigation into what it called a "larger conspiracy" behind the riots, registering FIR 59/2020 on 6 March 2020 and invoking the UAPA — a law that makes bail exceptionally difficult to obtain, since Section 43D(5) requires a court to find reasonable grounds the accusation is not even prima facie true before granting bail, a much higher bar than ordinary criminal law. Khalid was arrested on 13 September 2020, with police describing him as a "key conspirator."</p>
+
+      <h3>The Amravati speech, and what the chargesheet alleges</h3>
+      <p>Police built their case substantially around Khalid's Amravati speech, which prosecutors have called "very calculated" for touching on the CAA and NRC alongside the Babri Masjid demolition, the criminalisation of instant "triple talaq" divorce, Kashmir, and what the speech described as the state's treatment of Muslims. The chargesheet additionally alleges a meeting at Shaheen Bagh on 8 January 2020 involving Khalid, Khalid Saifi and then-AAP councillor Tahir Hussain, and cites statements from protected (anonymised) witnesses describing Khalid discussing road blockades (chakka jam) in Muslim neighbourhoods and urging awareness of the CAA among the area's residents. The broader charging theory ties Khalid, through WhatsApp groups such as the "Delhi Protest Support Group," to an alleged network spanning student groups, the Jamia Coordination Committee, and the now-banned Popular Front of India (PFI), with the riots' timing — coinciding with Trump's visit — cited as evidence of premeditation.</p>
+      <div class="callout allege">
+        <span class="tag sans">What the prosecution alleges</span>
+        <p>That Khalid's public speeches followed a scripted, coordinated pattern with other accused; that he was present at planning meetings; that the protest movement he helped lead was knowingly steered toward violence timed for maximum impact; and that, per the Supreme Court's January 2026 characterisation, he and co-accused Sharjeel Imam acted as "ideological drivers" of the conspiracy, standing on a different footing from other, since-bailed co-accused.</p>
+      </div>
+      <div class="callout defense">
+        <span class="tag sans">What Khalid's defence argues</span>
+        <p>That the Amravati speech explicitly called for non-violent protest and did not lead to any violence where it was delivered; that he was not in Delhi during the riots and was not present at the meeting where he supposedly conspired; that no weapons, money, or physical evidence connect him to the actual violence; that prosecution witnesses "cropped up" roughly a year after his arrest with suspiciously similar wording; and that courts have separately found fabricated evidence in at least seventeen instances across different Delhi riots cases, with more than ninety people acquitted across other FIRs tied to the same riots.</p>
+      </div>
+      <p>One Delhi court did side with the defence on a narrower, related charge: in December 2022, Khalid and Khalid Saifi were discharged (not acquitted) from a separate FIR concerning stone-pelting near Chand Bagh, with the court finding those allegations belonged to the "larger conspiracy" case rather than that specific incident. They remained in custody regardless, because the main UAPA case continued.</p>
+    </section>
+
+    <section id="timeline">
+      <h2>Seven years of bail hearings: a timeline</h2>
+      <p class="section-note sans">The abridged version. Khalid has also been granted brief interim bail several times on compassionate grounds — for his sister's wedding (2022, and again over December 2025–January 2026) and for his mother's surgery (June 2026) — each lasting only days, with conditions such as surrendering his phone number to police and staying off social media.</p>
+      <div class="timeline">
+        <div class="t-entry"><span class="t-date">13 Sep 2020</span><p>Delhi Police Special Cell arrests Khalid under the UAPA as an alleged "key conspirator" in the February riots.</p></div>
+        <div class="t-entry"><span class="t-date">24 Mar 2022</span><p>Trial (sessions) court rejects his first regular bail application, citing a prima facie case.</p></div>
+        <div class="t-entry"><span class="t-date">18 Oct 2022</span><p>Delhi High Court upholds that rejection, finding the allegations prima facie true and the conduct alleged prima facie qualifying as a "terrorist act" under the UAPA.</p></div>
+        <div class="t-entry"><span class="t-date">2023–24</span><p>Khalid's Special Leave Petition reaches the Supreme Court; hearings are repeatedly adjourned (one judge recuses). In 2024 Khalid withdraws the petition, citing changed circumstances, to pursue relief at the trial court instead.</p></div>
+        <div class="t-entry"><span class="t-date">2 Sep 2025</span><p>Delhi High Court (Justices Navin Chawla and Shalinder Kaur) again denies bail to Khalid, Imam and eight co-accused, holding they don't merit parity with previously bailed co-accused Natasha Narwal and Devangana Kalita.</p></div>
+        <div class="t-entry"><span class="t-date">10 Dec 2025</span><p>The Supreme Court reserves judgment after concluding hearings on the accuseds' appeals.</p></div>
+        <div class="t-entry"><span class="t-date">5 Jan 2026</span><p><strong>Gulfisha Fatima v. State of NCT of Delhi.</strong> The Supreme Court denies bail to Khalid and Imam, finding them to have played a more central, directing role in the conspiracy than other accused — while granting bail, the same day, to five co-accused: Gulfisha Fatima, Meeran Haider, Shifa-ur-Rehman, Mohd Saleem Khan and Shadab Ahmed. Khalid and Imam are barred from seeking fresh bail until protected witnesses are examined or one year passes, whichever comes first.</p></div>
+        <div class="t-entry"><span class="t-date">20 Apr 2026</span><p>The Supreme Court dismisses Khalid's review petition against the January judgment without an open-court hearing.</p></div>
+        <div class="t-entry"><span class="t-date">18 May 2026</span><p>A <em>different</em> Supreme Court bench (Justices B. V. Nagarathna and Ujjal Bhuyan), ruling in an unrelated UAPA case from Jammu &amp; Kashmir (<strong>Syed Iftikhar Andrabi v. NIA</strong>), openly questions the January judgment's reasoning, holding it sits uneasily with a binding 2021 precedent (<em>Union of India v. K. A. Najeeb</em>) that long trial delays can justify bail even under the UAPA. The bench states plainly that liberty should remain the default even in anti-terror cases.</p></div>
+        <div class="t-entry"><span class="t-date">22 May 2026</span><p>A third Supreme Court bench grants co-accused Khalid Saifi and Tasleem Ahmed six months' interim bail, and <strong>refers the underlying legal conflict to a larger bench</strong> for the Chief Justice to resolve — leaving Khalid and Imam without the same relief. The Delhi High Court separately grants Khalid three days' interim bail for his mother's surgery.</p></div>
+        <div class="t-entry"><span class="t-date">4 Jul 2026</span><p>The trial court rejects fresh bail pleas from Khalid and Imam, holding itself bound by the January Supreme Court order until the stated conditions are met.</p></div>
+        <div class="t-entry"><span class="t-date">30 Sep 2026</span><p>The Delhi High Court (Justices Prathiba M. Singh and Dinesh Bhatt) dismisses Khalid's and Imam's appeals — his third regular bail rejection at High Court level — holding it is "bound by judicial discipline" and cannot modify the Supreme Court's January conditions itself.</p></div>
+        <div class="t-entry"><span class="t-date">8 Oct 2026</span><p>Front Line Defenders names Khalid the 2026 Asia recipient of its Award for Human Rights Defenders at Risk; his father accepts on his behalf in Dublin.</p></div>
+        <div class="t-entry"><span class="t-date">15 Oct 2026</span><p><em>Today.</em> Khalid remains in Tihar Jail. The larger-bench reference on UAPA bail principles has not yet been resolved. Arguments on the framing of charges in the main case are still ongoing before the trial court.</p></div>
+      </div>
+    </section>
+
+    <section id="today">
+      <h2>Where things stand today</h2>
+      <p>Strip away the procedural detail and the picture is this: more than six years after his arrest, Umar Khalid has not been convicted of anything, has not been formally charged in open court in the case that is actually holding him, and — per the Supreme Court's own January 2026 order — cannot even apply for bail again until protected prosecution witnesses finish testifying or a full year passes, whichever comes first. Whether that is a reasonable consequence of the gravity of a terrorism case, or a due-process failure dressed up in procedure, is exactly where his supporters and his critics part ways.</p>
+      <p>Compounding the uncertainty: one Supreme Court bench (in January 2026) found a prima facie case strong enough to keep him in jail, while a different bench of equal strength (in May 2026, in an unrelated matter) suggested that very ruling had misapplied binding precedent. Indian legal commentary described the institutional situation bluntly — the Supreme Court Observer's own running tracker of Khalid's case noted that <a href="https://www.scobserver.in" target="_blank" rel="noopener">media commentary was "almost unanimous"</a> in criticising the January ruling's legal reasoning. The matter of which precedent actually governs UAPA bail in cases of long delay has been kicked up to a larger bench the Chief Justice has yet to constitute, as of this writing — leaving Khalid and Sharjeel Imam in a kind of legal limbo that their own co-accused, granted interim relief in the same case, are not sharing.</p>
+    </section>
+
+    <section id="record">
+      <h2>What's proven, alleged, and argued</h2>
+      <p>Because this case generates so much heat, it's worth being precise about categories.</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Category</th><th>What it actually means here</th></tr></thead>
+          <tbody>
+            <tr><td class="sans">Proven in court</td><td>That Khalid gave the Amravati speech; that an FIR, chargesheet and supplementary chargesheets exist; that courts at trial-court and High Court level have repeatedly found a "prima facie" case sufficient to deny bail. Prima facie findings are a low, provisional bar made for the purpose of a bail decision — they are not a verdict on guilt.</td></tr>
+            <tr><td class="sans">Alleged, not yet tried</td><td>That Khalid conspired with named co-accused to plan and time the riots; that his speech was coded incitement; that he directed road-blockades; that he holds a central coordinating role among the accused. These are the prosecution's charges, to be tested at trial — which, after six years, has not yet reached the stage of formal charges being framed.</td></tr>
+            <tr><td class="sans">Disputed by the defence</td><td>The authenticity and timing of witness statements; whether the speech itself (available in full, not just the edited clips originally used) contains any call to violence; whether WhatsApp-group membership amounts to conspiracy; whether "parity" with bailed co-accused should apply to Khalid too.</td></tr>
+            <tr><td class="sans">Resolved in Khalid's favour</td><td>Discharge (December 2022) from a separate stone-pelting FIR; several grants of short compassionate interim bail; the 2021 Delhi HC ruling (in co-accused's cases, not his own) that protest cannot be casually recast as terrorism — though the Supreme Court later said that ruling shouldn't be treated as binding precedent.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="government">
+      <h2>How the government and BJP see him</h2>
+      <p>The ruling Bharatiya Janata Party's position has been consistent since 2016: Khalid is routinely described by BJP leaders and aligned media as "anti-national," a rioter, and — more recently — a "riot mastermind," with his role in organising the 2016 Afzal Guru commemoration cited as foundational evidence of disloyalty. Delhi Police's Special Cell and prosecutors (who answer, in India's unusual arrangement for the capital, to the Union Home Ministry rather than Delhi's elected state government) have pursued the case as a matter of national-security seriousness, telling courts Khalid and others wanted "blood to spill on the streets" and that the protest movement he helped lead had been steered toward engineered violence.</p>
+      <p>The party has also actively opposed efforts to platform or commemorate him: in 2026, Karnataka BJP leaders petitioned the Bengaluru police commissioner to cancel an event tied to the anthology <em>Umar Khalid and His World</em>, invoking the spectre of "urban Naxal" networks, and BJP figures (including Union ministers, per ABVP representations) were separately lobbied to shut down screenings of a documentary about him at national law schools — discussed further below. Some right-leaning commentary goes considerably further than the party's formal line, with opinion pieces in outlets like OpIndia characterising Khalid in starkly ideological terms — alleging links to transnational Islamist movements or to unrelated foreign politicians — claims that have no basis in the chargesheet and that Khalid's supporters and mainstream fact-checkers dispute as unsubstantiated.</p>
+      <div class="callout allege">
+        <span class="tag sans">A representative BJP argument</span>
+        <p>Karnataka BJP leader C. T. Ravi, responding to a rival party colleague calling Khalid a "nationalist," asked pointedly whether that view represented the Congress party's official leadership, framing any sympathy for Khalid as itself a form of "anti-national" politics — "not Bharat Jodo, but Bharat Todo [breaking India]," as he put it.</p>
+      </div>
+      <p>It's worth noting one structural shift: Delhi's state government, whose sanction is needed to prosecute certain IPC offences (including the 2016 sedition case), changed hands in February 2025, when the BJP won control of the Delhi Assembly for the first time in 27 years, ending the Aam Aadmi Party's decade in power. That doesn't directly affect the UAPA case — which runs through the Union Home Ministry-controlled Delhi Police regardless of who runs the city government — but it does remove what had been, at times, a mildly complicating layer in the older sedition matter, where the AAP government's delay in granting prosecution sanction had itself become a political football.</p>
+    </section>
+
+    <section id="opposition">
+      <h2>How the opposition sees him</h2>
+      <p>Opposition reactions have been real but uneven, and it's inaccurate to describe "the opposition" as speaking with one voice. The clearest, most consistent institutional backing has come from the parliamentary Left — the CPI and CPI(M) and their student wings (AISF, SFI) — which organised early press conferences against Khalid's 2020 arrest and whose student cadres have been central to recent campus solidarity actions, including the documentary screenings discussed below.</p>
+      <p>The Congress party's position has been more fragmented and localised than unified. Senior state-level figures have at times gone considerably further than the national leadership: Karnataka Congress president B. K. Hariprasad called Khalid "a nationalist" in September 2026, arguing that only a court — not a political party — has the standing to brand someone "anti-national," and pointed to the lack of a completed chargesheet determination against him; he held his ground under sustained BJP criticism. Former Madhya Pradesh chief minister Digvijaya Singh went further still, calling Khalid "completely innocent" and accusing the BJP and RSS of conspiring against Muslims — a framing the BJP seized on as proof Congress sympathised with "riot masterminds." Karnataka's Congress state home minister, Priyank Kharge, publicly challenged Prime Minister Modi and Home Minister Amit Shah to "hold a trial" rather than render a political verdict on Khalid's loyalty. These interventions have tended to come from individual leaders and state units rather than as a coordinated national Congress position, and critics — including some outside the BJP — have suggested such statements are partly opportunistic, noting Digvijaya Singh's history of similarly prominent interventions in other politically charged cases (the Bhima Koregaon prosecutions, for instance).</p>
+      <p>The Aam Aadmi Party, which governed Delhi for a decade until losing power in February 2025, occupied an awkward middle position throughout Khalid's ordeal: it was an AAP-led Delhi government that eventually granted sanction to prosecute in the 2016 sedition case (after years of BJP accusing it of stalling), even as some AAP leaders expressed sympathy for the students involved. Asaduddin Owaisi's AIMIM and other Muslim-interest political voices have periodically invoked Khalid's case as emblematic of the treatment of Muslim activists under UAPA; in August 2026, a coalition of Muslim organisations wrote to the Congress party urging it to field Khalid for a Rajya Sabha seat from Rajasthan — a proposal that, as of this writing, has not translated into any confirmed nomination.</p>
+    </section>
+
+    <section id="courts">
+      <h2>How the courts have seen him</h2>
+      <p>If there's one institution whose view of Khalid has been most visibly unsettled, it's the judiciary itself — not because judges disagree about the facts of his case specifically, but because they disagree about the law that should decide it, and that disagreement has played out largely through Khalid's own proceedings.</p>
+      <p>The key tension is between two lines of Supreme Court authority. In <em>Union of India v. K. A. Najeeb</em> (2021), a three-judge bench held that prolonged pretrial detention and trial delay can justify bail even under the UAPA's unusually strict Section 43D(5) test, because the right to a speedy trial survives even serious charges. Against that stands the January 2026 two-judge ruling in <em>Gulfisha Fatima v. State</em>, which denied Khalid and Imam bail specifically — finding them on a different, more serious footing than other co-accused — a decision that a separate two-judge bench (Justices Nagarathna and Bhuyan) openly cast doubt on four months later while deciding an unconnected Kashmir case, warning that smaller benches shouldn't be allowed to quietly erode binding precedent and that "bail is the rule, jail is the exception" even for UAPA defendants. That dispute has since been kicked up to a larger bench for the Chief Justice to resolve — unusual, and a sign of how contested the governing law genuinely is, independent of anyone's view of Khalid's guilt or innocence.</p>
+      <p>Earlier, in June 2021, a landmark Delhi High Court ruling — not in Khalid's case, but in that of co-accused Natasha Narwal, Devangana Kalita and Asif Iqbal Tanha — found that Delhi Police had "blurred the line between the right to protest and terrorist activity," warning that normalising such an approach would be deeply damaging to Indian democracy, and ordered their release. The Supreme Court, hearing Delhi Police's challenge, declined to stay their release but took the unusual step of directing that the High Court's reasoning not be treated as binding precedent for other cases — a ruling that has since been cited by prosecutors, with some success, to argue Khalid's case is legally distinguishable from theirs. Trial-level judges have occasionally editorialised in Khalid's favour even while denying him bail: one Delhi High Court bench remarked orally that his Amravati speech "may be in bad taste" but that bad taste does not make something a terrorist act — and the same courts have pointedly refused police requests to produce Khalid in handcuffs, noting he is "not a gangster."</p>
+    </section>
+
+    <section id="civil-society">
+      <h2>Civil society, lawyers, and rights groups</h2>
+      <p>Within days of Khalid's 2020 arrest, more than 200 writers, academics and filmmakers worldwide — including Noam Chomsky, Salman Rushdie, Amitav Ghosh, Mira Nair and Cornel West — signed an open letter demanding his release and an impartial riots investigation, asking pointedly what, exactly, his "crime" had been. Domestically, Indian civil-liberties and press-freedom bodies (the People's Union for Civil Liberties among them) and sections of the legal community have repeatedly flagged his case, alongside the broader group of CAA-protest-linked UAPA defendants, as a test case for how far anti-terror law can be stretched to cover political dissent.</p>
+      <p>Amnesty International — whose Indian operations were themselves shut down in 2020 after the government froze the organisation's bank accounts, a move Amnesty called retaliatory and the government defended as a routine foreign-funding compliance matter — has continued to comment on his case from outside the country, calling a 2022 bail denial a "big blow" to freedom of expression and assembly in India. The Human Rights Foundation, a New York-based group, has been especially active: it petitioned the United Nations Working Group on Arbitrary Detention (UNWGAD) on Khalid's behalf in March 2025, and in March 2026 the Working Group issued a formal opinion finding his detention arbitrary under international law, concluding it stemmed from his peaceful, legitimate exercise of rights to free expression, assembly, association and participation in public life. A coalition including HRF, Amnesty, the International Federation for Human Rights (FIDH) and others renewed public calls for his release after the January 2026 Supreme Court verdict, and for UN member states to press India to allow a formal Working Group visit.</p>
+      <div class="callout">
+        <span class="tag sans">How Khalid's own lawyers frame it</span>
+        <p>Senior advocates Trideep Pais and Kapil Sibal, who have represented him across different stages, have told courts the case is "cooked up," citing dozens of instances of judicially-identified evidence fabrication in related Delhi riots prosecutions and arguing the entire theory rests on a public speech and sparse WhatsApp messages rather than any act of violence.</p>
+      </div>
+    </section>
+
+    <section id="international">
+      <h2>The view from outside India</h2>
+      <p>International attention to the case has grown steadily rather than appearing all at once. Foreign wire services (AFP, Reuters-sourced reports) and outlets from Al Jazeera to Pakistani and Southeast Asian press have periodically covered his bail hearings, typically framing him for international audiences as a "jailed Muslim activist" or "student leader," and situating his case within broader Western and UN commentary on India's use of the UAPA against activists, journalists and students more generally — reporting that Indian officials and supporters of the government dispute as one-sided or as interference in a sovereign legal process.</p>
+      <p>The most concrete recent marker of international recognition came on 8 October 2026, when the Dublin-based organisation Front Line Defenders named Khalid its 2026 Asia recipient of the Award for Human Rights Defenders at Risk, honouring his role in the CAA protest movement; unable to travel, Khalid was represented at the Trinity College Dublin ceremony by his father. In its citation, the organisation noted — and this is close to the honest summary of the entire dossier — that to those trying to silence him he is an "anti-national," while to others he is treated as something closer to a national hero or a free-speech cause.</p>
+    </section>
+
+    <section id="documentary">
+      <h2>Flashpoint: the campus documentary row</h2>
+      <p>In September 2026, a documentary by filmmaker Lalit Vachani, titled <em>Prisoner No. 626710</em> after Khalid's Tihar Jail inmate number, became the site of a fresh and quite literal campus battle. The ABVP mounted an organised campaign — including formal letters to Union Home Minister Amit Shah, the Education Minister and the Law Minister — to block a planned screening at the National Law School of India University (NLSIU) in Bengaluru; NLSIU's own student organisers postponed, then cancelled the event, saying they had faced "serious threats of criminal action, intimidation, doxxing, and other forms of harassment," while denying they had simply caved to pressure.</p>
+      <p>Students at NALSAR University of Law in Hyderabad responded days later by screening the film anyway, without formal administrative authorisation, prompting ABVP to demand a university enquiry; separately, the Central Board of Film Certification reportedly warned a different institution (IIIT Hyderabad) that screening an uncertified film could breach the Cinematograph Act. The sharpest flashpoint came at Pondicherry University on 25 September 2026, where a screening organised by left-aligned student groups (SFI, the Ambedkar Students' Association, NSUI and others) led to a physical clash with ABVP members; each side blames the other for instigating the violence, with ABVP saying its members were "manhandled" while trying to question the screening's legitimacy, and SFI saying ABVP activists stormed the venue and attacked attendees, with injuries reported among students aligned with both camps.</p>
+      <p>The episode is a useful microcosm of the whole dossier: ABVP's Pondicherry unit asked, rhetorically, how a university could let "the documentary of anti-national Umar Khalid" be screened at all; the students who organised it framed it as solidarity with a political prisoner and a basic exercise of academic freedom. Both framings are now, in effect, competing for control of how an entire generation of Indian university students will first encounter his name.</p>
+    </section>
+
+    <section id="media">
+      <h2>Media and public perception</h2>
+      <p>Indian media coverage of Khalid divides almost perfectly along the same lines as the rest of Indian political media more broadly. Outlets seen as government-aligned (Republic TV, News18's more partisan programming, and digital commentary sites like OpIndia and Organiser, the RSS's own publication) consistently frame him as a convicted-in-the-court-of-public-opinion rioter and extremist, often citing the 2016 Afzal Guru event as settled proof of anti-national intent regardless of the 2020 case's outcome. Outlets more associated with the Left-liberal or independent press (The Wire, Scroll.in, Newslaundry, Maktoob Media, Sabrang) foreground the length of his detention, the slow pace of the trial, the fabricated-evidence findings in related cases, and the UN Working Group's arbitrary-detention finding, generally framing him as a political prisoner.</p>
+      <p>Several specific claims from the 2016 controversy illustrate how contested the factual record itself has been: the allegation that Khalid made roughly 800 calls to "the Gulf or Kashmir" in the days before the 2016 event, and the claim of an Intelligence Bureau report tying him to Jaish-e-Mohammed, were both denied by Khalid at the time and, in the case of the IB claim, by the Intelligence Bureau itself — a reminder that the information environment around him has included claims that did not hold up, circulating alongside claims that remain genuinely contested and unresolved. Mainstream wire-service coverage (PTI, AFP, Reuters) has generally stuck to procedural reporting — what courts ordered and when — without adjudicating the underlying dispute, which is the approach this dossier has also tried to take.</p>
+    </section>
+
+    <section id="personal">
+      <h2>The person: family, beliefs, writing</h2>
+      <p>Khalid is unmarried. His partner, Banojyotsna Lahiri, is herself a JNU-trained activist and has spoken publicly and written about the experience of corresponding with and visiting him in prison, including relaying his reactions to his co-accused's bail grants and denials. Friends from his JNU years describe someone known on campus for warmth and sociability rather than the dour "mastermind" image projected by state media — one friend recalled that, pre-arrest, Khalid would ask interviewers why they only ever wanted to discuss his religious identity rather than his actual scholarly interests in poverty and rural inequality.</p>
+      <p>His parents have spoken periodically to the press about the toll of his imprisonment: his father, a veteran of Muslim community organising, said simply that he had "nothing to say" after the Supreme Court's January 2026 bail denial; his mother has described trying, by stepping outside in harsh weather herself, to imagine what her son's confinement feels like.</p>
+      <p>Despite — or because of — his imprisonment, Khalid has continued to produce scholarly and public writing. His doctoral research became the basis of a book, <em>Fractured Communities</em>, examining the transformation of Jharkhand's Singhbhum tribal belt under colonial rule, the postcolonial state, and corporate capital — discussed at a launch event (which he could not attend) featuring Rajya Sabha MP Manoj Jha, academic Apoorvanand, and <em>The Wire</em>'s founding editor Siddharth Varadarajan. A separate anthology about him and his writing, <em>Umar Khalid and His World</em>, was published in February 2026 and has itself become a minor political flashpoint, with the Karnataka BJP petitioning police to stop a public reading from it in Bengaluru.</p>
+    </section>
+
+    <section id="others">
+      <h2>Where his co-accused and peers stand now</h2>
+      <p>Part of what makes Khalid's case notable is how differently it has unfolded compared with people who stood beside him at nearly every stage. Kanhaiya Kumar, arrested alongside him in 2016, left the CPI for the Congress party in 2021, contested and lost the 2024 Lok Sabha election for North East Delhi against the BJP's Manoj Tiwari, and now holds a Congress organisational post; commentators (including at Scroll.in) have noted his relative public silence on Khalid's continuing imprisonment as a pointed contrast with his own rhetoric about courage and pluralism.</p>
+      <p>Among the 2020 case's co-accused: Natasha Narwal, Devangana Kalita and Asif Iqbal Tanha won bail from the Delhi High Court in June 2021 in the landmark ruling discussed above; Safoora Zargar was released on bail in June 2020 on account of her pregnancy; Gulfisha Fatima, Meeran Haider, Shifa-ur-Rehman, Mohd Saleem Khan and Shadab Ahmed were bailed by the Supreme Court in January 2026 alongside Khalid's own denial; and Khalid Saifi and Tasleem Ahmed received six months' interim bail in May 2026 as part of the same ruling that referred the broader legal question to a larger bench. Sharjeel Imam remains, like Khalid, in custody and subject to the same legal embargo on renewed bail applications.</p>
+    </section>
+
+    <section id="reading">
+      <h2>A balanced closing note</h2>
+      <p>It would be dishonest to pretend this dossier can resolve what India's own courts, across more than a dozen benches over six years, have not resolved: whether Umar Khalid is guilty of helping plan one of Delhi's deadliest riots in decades, or whether he has spent six-plus years in prison for a peaceful speech opposing a citizenship law. Both propositions have been argued by serious people — prosecutors, senior advocates, sitting judges, human rights bodies, elected politicians — in good faith, and the honest position for anyone without access to the full trial record is to hold the question open rather than perform certainty either way.</p>
+      <p>What can be said with more confidence is this: the length of his pretrial detention, and the fact that formal charges have still not been framed after six years, are facts rather than interpretations, and they sit at the centre of a genuine, unresolved legal controversy inside the Supreme Court itself about how UAPA bail law should work — a controversy that exists independently of whatever one believes about Khalid's actions in early 2020. Whatever the eventual trial verdict, that specific institutional tangle, now kicked up to a still-unformed larger bench, is likely to shape Indian anti-terror bail jurisprudence for cases well beyond his own.</p>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <h2>Sources</h2>
+  <p class="sans" style="margin-bottom:14px;">A representative selection of the outlets drawn on for this dossier; full search history available on request. Court orders referenced by name and date are summarised, not quoted at length, from contemporaneous reporting.</p>
+  <ol class="sans">
+    <li>Live Law — rolling coverage of Umar Khalid bail proceedings, livelaw.in/tags/umar-khalid</li>
+    <li>Bar &amp; Bench — Supreme Court and Delhi High Court litigation reporting, barandbench.com</li>
+    <li>Supreme Court Observer — "Umar Khalid's Bail Application Tracker," scobserver.in</li>
+    <li>The Wire — "Six Years Without Trial: Delhi High Court Denies Bail to Umar Khalid and Sharjeel Imam," thewire.in</li>
+    <li>Citizens for Justice and Peace — "Six Years Without a Trial," cjp.org.in</li>
+    <li>Jurist.org — "India dispatch: Supreme Court weighs anti-terror law," May 2026</li>
+    <li>Human Rights Foundation — press releases and UNWGAD petition materials, hrf.org</li>
+    <li>Al Jazeera — "India: Amnesty calls denial of bail to Muslim activist 'big blow'"</li>
+    <li>Maktoob Media — interviews with Khalid's parents and case coverage, maktoobmedia.com</li>
+    <li>Scroll.in — "From restless student activism to calm awareness" and Kanhaiya Kumar profile</li>
+    <li>Deccan Herald, Tribune India, Business Standard — bail hearing and chronology reporting</li>
+    <li>Front Line Defenders — 2026 Award for Human Rights Defenders at Risk announcement</li>
+    <li>The Print, Organiser, OpIndia, The News Minute — documentary-row and political-reaction coverage (presented with their editorial leanings noted in text)</li>
+    <li>Wikipedia — "Umar Khalid," for biographical cross-reference</li>
+  </ol>
+  <p class="sans" style="margin-top:18px;">Compiled 15 October 2026. The underlying case is active and fast-moving; treat any date close to the compilation date as provisional and worth re-checking.</p>
+</footer>
+
+<script>
+  (function(){
+    var btn = document.getElementById('themeToggle');
+    var root = document.documentElement;
+    try {
+      var saved = null;
+      try { saved = window.__theme || null; } catch(e){}
+    } catch(e){}
+    var current = 'auto';
+    btn.addEventListener('click', function(){
+      if (current === 'auto') {
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        current = prefersDark ? 'light' : 'dark';
+      } else if (current === 'dark') {
+        current = 'light';
+      } else {
+        current = 'dark';
+      }
+      root.setAttribute('data-theme', current);
+      btn.textContent = current === 'dark' ? 'Light mode' : 'Dark mode';
+    });
+    // Close mobile TOC when a link is tapped
+    var details = document.getElementById('tocDetails');
+    if (details) {
+      var links = details.querySelectorAll('a');
+      links.forEach(function(a){
+        a.addEventListener('click', function(){
+          if (window.innerWidth <= 920) details.removeAttribute('open');
+        });
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>
